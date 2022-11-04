@@ -1,0 +1,47 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name:  yaf-mysql
+spec:
+  selector:
+    app:  yaf-mysql
+  type:  NodePort
+  ports:
+  - port:  3306
+    protocol: TCP
+    targetPort:  3306
+    nodePort: 31090
+
+---
+
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: yaf-mysql
+spec:
+  selector: # 选择器
+    matchLabels: # 标签匹配
+      app: yaf-mysql
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: yaf-mysql
+    spec:
+      containers:
+        - name: yaf-mysql
+          image: mysql
+          imagePullPolicy: IfNotPresent
+          resources: {}
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: yaf-mysql-data
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "1"
+      volumes:
+        - name:  yaf-mysql-data
+          hostPath:
+            path:  /Users/zhuyimin/docker/k8s/docker-desktop/yaf/mysql/data
