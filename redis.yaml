@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: yaf-redis
+spec:
+  type: ClusterIP
+  selector:
+    app: yaf-redis
+  ports:
+  - port: 6379
+    targetPort: 6379
+
+---
+
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: yaf-redis
+spec:
+  selector: # 选择器
+    matchLabels: # 标签匹配
+      app: yaf-redis
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: yaf-redis
+    spec:
+      containers:
+        - name: yaf-redis
+          image: redis
+          imagePullPolicy: IfNotPresent
+          resources: {}
+          ports:
+            - containerPort: 6379
+          volumeMounts:
+            - mountPath: /data
+              name: yaf-redis-data
+      volumes:
+        - name:  yaf-redis-data
+          hostPath:
+            path:  /Users/zhuyimin/docker/k8s/docker-desktop/yaf/redis
