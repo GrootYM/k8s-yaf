@@ -113,19 +113,19 @@ spec: # Deployment 对象规约
                   - sh
                   - '-c'
                   - sleep 5 && kill -SIGQUIT 1 # 优雅退出
-        - name: xb-yaf-redis
-          image: redis
-          imagePullPolicy: IfNotPresent
-          resources: {}
-          # resources: # 资源约束
-          #   requests: # 最小限制
-          #     memory: "64Mi" # 内存最新64M 
-          #     cpu: "250m" # CPU最大使用0.25核
-          #   limits: # 最大限制
-          #     memory: "128Mi" # 内存最新128M 
-          #     cpu: "500m" # CPU最大使用0.5核
-          ports:
-            - containerPort: 6379 # redis 端口
+        # - name: xb-yaf-redis
+        #   image: redis
+        #   imagePullPolicy: IfNotPresent
+        #   resources: {}
+        #   # resources: # 资源约束
+        #   #   requests: # 最小限制
+        #   #     memory: "64Mi" # 内存最新64M 
+        #   #     cpu: "250m" # CPU最大使用0.25核
+        #   #   limits: # 最大限制
+        #   #     memory: "128Mi" # 内存最新128M 
+        #   #     cpu: "500m" # CPU最大使用0.5核
+        #   ports:
+        #     - containerPort: 6379 # redis 端口
         - name: xb-yaf-nginx # 第二个容器名称
           image: nginx # 容器镜像
           imagePullPolicy: IfNotPresent

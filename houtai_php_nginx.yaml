@@ -80,7 +80,7 @@ spec: # Deployment 对象规约
   selector: # 选择器
     matchLabels: # 标签匹配
       app: php-fpm-nginx
-  replicas: 3 # 副本数量
+  replicas: 1 # 副本数量
   template: # 模版
     metadata: # Pod 对象的元数据
       labels: # Pod 对象的标签
@@ -122,18 +122,18 @@ spec: # Deployment 对象规约
                   - sh
                   - '-c'
                   - sleep 5 && kill -SIGQUIT 1 # 优雅退出
-        - name: redis
-          image: redis
-          imagePullPolicy: IfNotPresent
-          resources: # 资源约束
-            requests: # 最小限制
-              memory: "64Mi" # 内存最新64M 
-              cpu: "250m" # CPU最大使用0.25核
-            limits: # 最大限制
-              memory: "128Mi" # 内存最新128M 
-              cpu: "500m" # CPU最大使用0.5核
-          ports:
-            - containerPort: 6379 # redis 端口
+        # - name: redis
+        #   image: redis
+        #   imagePullPolicy: IfNotPresent
+        #   resources: # 资源约束
+        #     requests: # 最小限制
+        #       memory: "64Mi" # 内存最新64M 
+        #       cpu: "250m" # CPU最大使用0.25核
+        #     limits: # 最大限制
+        #       memory: "128Mi" # 内存最新128M 
+        #       cpu: "500m" # CPU最大使用0.5核
+        #   ports:
+        #     - containerPort: 6379 # redis 端口
         - name: nginx # 第二个容器名称
           image: nginx # 容器镜像
           imagePullPolicy: IfNotPresent

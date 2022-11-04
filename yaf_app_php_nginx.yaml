@@ -86,10 +86,10 @@ spec: # Deployment 对象规约
         app: app-yaf-php-nginx
     spec: # Pod 对象规约
       containers: # 这里设置了两个容器
-        - name: tsg-yaf-redis
-          image: redis
-          imagePullPolicy: IfNotPresent
-          resources: {}
+        # - name: tsg-yaf-redis
+        #   image: redis
+        #   imagePullPolicy: IfNotPresent
+        #   resources: {}
           # resources: # 资源约束
           #   requests: # 最小限制
           #     memory: "64Mi" # 内存最新64M 
@@ -97,8 +97,8 @@ spec: # Deployment 对象规约
           #   limits: # 最大限制
           #     memory: "128Mi" # 内存最新128M 
           #     cpu: "500m" # CPU最大使用0.5核
-          ports:
-            - containerPort: 6379 # redis 端口
+          # ports:
+          #   - containerPort: 6379 # redis 端口
         - name: app-yaf-php-fpm # 第一个容器名称
           image: compose-api-73-php:latest # 容器镜像
           imagePullPolicy: IfNotPresent #镜像拉取策略
